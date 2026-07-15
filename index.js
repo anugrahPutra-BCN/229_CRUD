@@ -82,6 +82,7 @@ app.delete('/biodata/:id', async (req, res) => {
             [id]
         );
 
+// [COMMIT 5] Handling status code 404 jika id biodata tidak ditemukan
         if (result.rows.length === 0) {
             return res.status(404).json({ error: "Data dengan id tersebut tidak ditemukan" });
         }
