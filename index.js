@@ -15,7 +15,7 @@ const pool = new Pool({
 
 app.use(express.json());
 
-// GET - Mengambil semua data biodata
+// [COMMIT 2] Implementasi rute GET untuk membaca seluruh data tabel biodata
 app.get('/biodata', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM biodata');
