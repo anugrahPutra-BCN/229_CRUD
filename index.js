@@ -29,8 +29,7 @@ app.get('/biodata', async (req, res) => {
     }
 });
 
-// POST - Menambah data biodata baru
-app.post('/biodata', async (req, res) => {
+// [COMMIT 3] Implementasi rute POST untuk memasukkan data baru ke tabel biodataapp.post('/biodata', async (req, res) => {
     try {
         const { id, nama, nim, kelas } = req.body;
 
