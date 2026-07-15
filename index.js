@@ -48,8 +48,7 @@ app.get('/biodata', async (req, res) => {
     }
 });
 
-// PUT - Mengupdate data biodata berdasarkan id
-app.put('/biodata/:id', async (req, res) => {
+// [COMMIT 4] Implementasi rute PUT dan DELETE berbasis id parameterapp.put('/biodata/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { nama, nim, kelas } = req.body;
