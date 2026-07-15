@@ -4,7 +4,9 @@ const { Pool } = require('pg');
 const app = express();
 const port = 3000;
 
-// Konfigurasi Connection Pool ke PostgreSQL
+// ==========================================
+// [COMMIT 1] Setup koneksi database postgresql menggunakan pg pool
+// ==========================================
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -15,7 +17,9 @@ const pool = new Pool({
 
 app.use(express.json());
 
+// ==========================================
 // [COMMIT 2] Implementasi rute GET untuk membaca seluruh data tabel biodata
+// ==========================================
 app.get('/biodata', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM biodata');
@@ -29,7 +33,10 @@ app.get('/biodata', async (req, res) => {
     }
 });
 
-// [COMMIT 3] Implementasi rute POST untuk memasukkan data baru ke tabel biodataapp.post('/biodata', async (req, res) => {
+// ==========================================
+// [COMMIT 3] Implementasi rute POST untuk memasukkan data baru ke tabel biodata
+// ==========================================
+app.post('/biodata', async (req, res) => {
     try {
         const { id, nama, nim, kelas } = req.body;
 
@@ -48,7 +55,10 @@ app.get('/biodata', async (req, res) => {
     }
 });
 
-// [COMMIT 4] Implementasi rute PUT dan DELETE berbasis id parameterapp.put('/biodata/:id', async (req, res) => {
+// ==========================================
+// [COMMIT 4] Implementasi rute PUT dan DELETE berbasis id parameter
+// ==========================================
+app.put('/biodata/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { nama, nim, kelas } = req.body;
@@ -58,6 +68,7 @@ app.get('/biodata', async (req, res) => {
             [nama, nim, kelas, id]
         );
 
+        // [COMMIT 5] Handling status code 404 jika id biodata tidak ditemukan
         if (result.rows.length === 0) {
             return res.status(404).json({ error: "Data dengan id tersebut tidak ditemukan" });
         }
@@ -72,7 +83,6 @@ app.get('/biodata', async (req, res) => {
     }
 });
 
-// DELETE - Menghapus data biodata berdasarkan id
 app.delete('/biodata/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -82,7 +92,7 @@ app.delete('/biodata/:id', async (req, res) => {
             [id]
         );
 
-// [COMMIT 5] Handling status code 404 jika id biodata tidak ditemukan
+        // [COMMIT 5] Handling status code 404 jika id biodata tidak ditemukan
         if (result.rows.length === 0) {
             return res.status(404).json({ error: "Data dengan id tersebut tidak ditemukan" });
         }
